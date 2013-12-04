@@ -329,33 +329,6 @@ class Firebase {
     }
 }
 
-function stringify(t, i = 0) {
-    if (t == null) {
-        server.log("null")
-        return;
-    }
-    local indentString = "";
-    for(local x = 0; x < i; x++) indentString += ".";
- 
-    if (typeof(t) != "table" && typeof(t) != "array") {
-        server.log(indentString + t)
-    } else {
-        foreach(k, v in t) {
-            if (typeof(v) == "table" || typeof(v) == "array") {
-                local par = "[]";
-                if (typeof(v) == "table") par = "{}";
-                
-                server.log(indentString + k + ": " + par[0].tochar());
-                stringify(v, i+4);
-                server.log(indentString + par[1].tochar());
-            } 
-            else { 
-                server.log(indentString + k + ": " + v);
-            }
-        }
-    }
-}
-
 firebase <- Firebase(FIREBASE_URL, null);
 
 firebase.on("/",function(data) {
